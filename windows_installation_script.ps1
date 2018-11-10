@@ -132,16 +132,17 @@ cp $SUPPORT\js.cookie.js $STATIC\js.cookie.js
 cp $SUPPORT\jquery-ui-1.12.1.zip $STATIC\jquery-ui-1.12.1.zip
 # 7z seems not to like to follow variable pathnames... so we 'cd'
 cd $STATIC\
-7z x .\jquery-ui-1.12.1.zip
+7z -aoa x .\jquery-ui-1.12.1.zip
 rm $STATIC\query-ui-1.12.1.zip
 mv $STATIC\query-ui-1.12.1\* $STATIC\
 rmdir $STATIC\query-ui-1.12.1\
 
-cp $SUPPORT\RobotoMono-Medium.ttf $STATIC\ttf\RobotoMono-Medium.ttf
+cp $SUPPORT\NotoMono-hinted.zip $STATIC\ttf\NotoMono-hinted.zip
+cp $SUPPORT\NotoSans-unhinted.zip $STATIC\ttf\NotoSans-unhinted.zip
+cp $SUPPORT\NotoSansDisplay-unhinted.zip $STATIC\ttf\NotoSansDisplay-unhinted.zip
 cd $STATIC\ttf
-cp $SUPPORT\roboto-unhinted.zip $STATIC\ttf\
-7z x .\roboto-unhinted.zip
-rm $STATIC\ttf\roboto-unhinted.zip
+7z -aoa x .\*.zip
+rm $STATIC\ttf\*.zip
 
 Add-Type -AssemblyName System.Web
 $WRPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
