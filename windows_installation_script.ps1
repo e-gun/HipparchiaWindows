@@ -77,6 +77,7 @@ New-Variable -Name MACPATH -Value $HIPPHOME\HipparchiaMacOS
 New-Variable -Name WINPATH -Value $HIPPHOME\HipparchiaWindows
 New-Variable -Name DATAPATH -Value $HIPPHOME\HipparchiaData
 New-Variable -Name THIRDPARTYPATH -Value $HIPPHOME\HipparchiaThirdPartySoftware
+New-Variable -Name EXTRAFONTS -Value $HIPPHOME\HipparchiaExtraFonts
 New-Variable -Name SUPPORT -Value $THIRDPARTYPATH\minimal_installation
 New-Variable -Name STATIC -Value $SERVERPATH\server\static
 New-Variable -Name THEDB -Value hipparchiaDB
@@ -88,8 +89,9 @@ New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaBSD.git
 New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS.git
 New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
+New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
 
-ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH) {
+ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH $EXTRAFONTS) {
     mkdir $dirname
     }
 
@@ -122,6 +124,9 @@ git pull $WINGIT
 cp $WINPATH\launch_hipparchia_server.ps1 $HIPPHOME\
 cp $WINPATH\windows_selfupdate.ps1 $HIPPHOME\
 
+cd $FONTGIT
+git init
+git pull $EXTRAFONTS
 
 cd $THIRDPARTYPATH
 git init

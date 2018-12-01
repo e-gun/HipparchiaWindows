@@ -9,6 +9,7 @@ New-Variable -Name MACPATH -Value $HIPPHOME\HipparchiaMacOS
 New-Variable -Name WINPATH -Value $HIPPHOME\HipparchiaWindows
 New-Variable -Name DATAPATH -Value $HIPPHOME\HipparchiaData
 New-Variable -Name THIRDPARTYPATH -Value $HIPPHOME\HipparchiaThirdPartySoftware
+New-Variable -Name EXTRAFONTS -Value $HIPPHOME\HipparchiaExtraFonts
 New-Variable -Name STATIC -Value $SERVERPATH\server\static
 New-Variable -Name THEDB -Value hipparchiaDB
 
@@ -19,6 +20,7 @@ New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaBSD.git
 New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS.git
 New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
+New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
 
 cd $SERVERPATH
 git pull $SERVERGIT
@@ -40,5 +42,8 @@ git pull $WINGIT
 
 cd $THIRDPARTYPATH
 git pull $THIRDPARTYGIT
+
+cd $EXTRAFONTS
+git pull $FONTGIT
 
 cd $HIPPHOME
