@@ -39,3 +39,6 @@ as necessary and then...
 [**nb**: wordcounts build only in theory: they require >4GB of RAM and 
 are untested on a Windows installation with that much memory. But installations
 that do not have wordcounts work just fine.]
+
+
+![sample_screen](hipparchia_windows_screenshot.png)
