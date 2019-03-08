@@ -40,8 +40,4 @@ as necessary and then...
 are untested on a Windows installation with that much memory. But installations
 that do not have wordcounts work just fine.]
 
-**KNOWN ISSUE**: `singlewordsearch()` as called via a click on a morphology table will trigger a recursion error, 
-but this seems to be a `multiprocessing\popen_spawn_win32.py` problem and not a 
-programming error in HipparchiaServer
-
 ![sample_screen](hipparchia_windows_screenshot.png)
