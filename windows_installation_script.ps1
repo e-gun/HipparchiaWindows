@@ -16,7 +16,7 @@ Set-ExecutionPolicy RemoteSigned
 $UNAME = [Environment]::UserName
 
 Set-Alias python "C:\Users\$UNAME\AppData\Local\Programs\Python\Python3*\python.exe"
-Set-Alias git  'C:\Program Files (x86)\Git\bin\git.exe'
+Set-Alias git  'C:\Program Files\Git\bin\git.exe'
 Set-Alias psql 'C:\Program Files\PostgreSQL\*\bin\psql.exe'
 Set-Alias 7z   'C:\Program Files\7-zip\7z.exe'
 
@@ -91,7 +91,7 @@ New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
 New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
 
-ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH $EXTRAFONTS) {
+ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS) {
     mkdir $dirname
     }
 
