@@ -1,4 +1,4 @@
-Set-Alias git  'C:\Program Files (x86)\Git\bin\git.exe'
+Set-Alias git  'C:\Program Files\Git\bin\git.exe'
 
 New-Variable -Name HIPPHOME -Value ~\hipparchia_venv
 New-Variable -Name SERVERPATH -Value $HIPPHOME\HipparchiaServer

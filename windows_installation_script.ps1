@@ -150,7 +150,7 @@ cd $STATIC\ttf
 rm $STATIC\ttf\*.zip
 
 # the next can generate passwords with '%' in them; configparser will choke on '%' (which needs to be escaped as '%%')
-# this is a problem if hippa_wr gets a bad password: build/reload will fail until you hand edit the password; bleh
+# this is a problem if hippa_wr gets a bad password: build/reload will fail
 
 Add-Type -AssemblyName System.Web
 $WRPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
