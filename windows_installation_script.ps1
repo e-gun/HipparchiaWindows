@@ -138,9 +138,9 @@ cp $SUPPORT\jquery-ui-1.12.1.zip $STATIC\jquery-ui-1.12.1.zip
 # 7z seems not to like to follow variable pathnames... so we 'cd'
 cd $STATIC\
 7z -aoa x .\jquery-ui-1.12.1.zip
-rm $STATIC\query-ui-1.12.1.zip
-mv $STATIC\query-ui-1.12.1\* $STATIC\
-rmdir $STATIC\query-ui-1.12.1\
+rm $STATIC\jquery-ui-1.12.1.zip
+mv $STATIC\jquery-ui-1.12.1\* $STATIC\
+rmdir $STATIC\jquery-ui-1.12.1\
 
 cp $SUPPORT\NotoMono-hinted.zip $STATIC\ttf\NotoMono-hinted.zip
 cp $SUPPORT\NotoSans-unhinted.zip $STATIC\ttf\NotoSans-unhinted.zip
