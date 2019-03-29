@@ -149,10 +149,15 @@ cd $STATIC\ttf
 7z -aoa x .\*.zip
 rm $STATIC\ttf\*.zip
 
+# the next can generate passwords with '%' in them; configparser will choke on '%' (which needs to be escaped as '%%')
+# this is a problem if hippa_wr gets a bad password: build/reload will fail until you hand edit the password; bleh
+
 Add-Type -AssemblyName System.Web
 $WRPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 $RDPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 $SKRKEY = [System.Web.Security.Membership]::GeneratePassword(24,6)
+
+$WRPASS = $WRPASS -Replace '%'
 
 echo "the next several commands require you to enter the password for postgres (4x)"
 C:\Program*Files\PostgreSQL\*\bin\createdb.exe -U postgres -E utf8 -l C $THEDB
