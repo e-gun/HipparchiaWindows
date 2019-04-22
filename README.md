@@ -110,4 +110,15 @@ as necessary and then...
 are untested on a Windows installation with that much memory. But installations
 that do not have wordcounts work just fine.]
 
+####Troubleshooting cheatsheet
+
+Building / Loading / Debugging will be done in PowerShell
+
+1. A shell with `administrator` privileges is often going to be required
+1. `Set-ExecutionPolicy RemoteSigned` will usually need to be set before anything can happen
+1. `~\hipparchia_venv\Scripts\activate` needs to be executed to get the right `python` interpreter
+1. Only at this point will saying `python .\somescript.py` work
+1. **Avoid** editing `config.ini` with `NotePad`. Unicode errors will ensue after you hit `save`. Consider using something smarter like `Sublime Text`.
+
+
 ![sample_screen](hipparchia_windows_screenshot.png)
