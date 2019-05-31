@@ -83,7 +83,7 @@ it is **critical** to choose `"C"` as the Locale when asked to by the
 `postgresql` installer
 
 you will need to pick a good, strong `password` for the user `postgres` 
-when installing `postgresql`. You will enter this password 4x when 
+when installing `postgresql`. **You will enter this password 4x** when 
 running the installation script.
 
 the software also needs to be installed into the proper 
@@ -106,9 +106,18 @@ as necessary and then...
     cd ..\HipparchiaBuilder\
     python .\makecorpora.py
     
+**Vector** functions are not automatically installed. You need to:
+
+    pip install cython scipy numpy gensim pyLDAvis matplotlib networkx scikit-learn
+
+The `pip install...` command will only work if you `activate`-ed the `venv` as in **Building** above.
+
+
 [**nb**: wordcounts build only in theory: they require >4GB of RAM and 
 are untested on a Windows installation with that much memory. But installations
 that do not have wordcounts work just fine.]
+
+
 
 ####Troubleshooting cheatsheet
 
