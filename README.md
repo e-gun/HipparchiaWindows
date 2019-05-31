@@ -94,8 +94,11 @@ folders (should default to them, though):
     7z:     'C:\Program Files\7-zip\7z.exe'
     psql:   'C:\Program Files\PostgreSQL\*\bin\psql.exe'
     
-the installer script (`windows_installation_script.ps1`) needs 
-`Set-ExecutionPolicy RemoteSigned`. In order to do that, you will 
+At this point you are ready to **run the installer script** (`windows_installation_script.ps1`). 
+The shell executing it requires 
+`Set-ExecutionPolicy RemoteSigned`. 
+
+In order to ensure that, you will 
 need to set that policy via an `Administrator` shell.
 
 **Building** entails `activate`-ing the `venv`. Edit `config.ini` 
