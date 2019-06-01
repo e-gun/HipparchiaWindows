@@ -35,7 +35,7 @@ echo ''
 echo '[the git installer will ask you a lot of questions: pick the default answers and you will be fine]'
 echo ''
 echo '[the postgres installer will ask for a superuser password for the user "postgres"'
-echo 'consider using the following random password:   " $PSPASS "]'
+echo 'if you have not already chosen one, consider using the following random password:   " $PSPASS "]'
 echo 'it is SUPER IMPORTANT that you chose "C" as the Locale when asked'
 echo ''
 
@@ -91,7 +91,7 @@ New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
 New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
 
-ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS) {
+ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $FONTGIT) {
     mkdir $dirname
     }
 

@@ -83,7 +83,7 @@ it is **critical** to choose `"C"` as the Locale when asked to by the
 `postgresql` installer
 
 you will need to pick a good, strong `password` for the user `postgres` 
-when installing `postgresql`. **You will enter this password 4x** when 
+when installing `postgresql`. Note it down for later because **you will enter this password 4x** when 
 running the installation script.
 
 the software also needs to be installed into the proper 
@@ -122,7 +122,7 @@ that do not have wordcounts work just fine.]
 
 
 
-####Troubleshooting cheatsheet
+#### Troubleshooting cheatsheet
 
 Building / Loading / Debugging will be done in PowerShell
 
