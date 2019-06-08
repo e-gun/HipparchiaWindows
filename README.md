@@ -133,4 +133,15 @@ Building / Loading / Debugging will be done in PowerShell
 1. **Avoid** editing `config.ini` with `NotePad`. Unicode errors will ensue after you hit `save`. Consider using something smarter like `Sublime Text`.
 
 
+
+the Windows version of Hipparchia is **far** slower than other versions. 
+
+1. Windows Defender hates postgres; if you search 235k texts, Windows Defender will look at all of them first. Ick.
+1. You can/should exclude the psql data files from being "defended" against. See the image below.
+1. This will restore c. 50% of your missing search speed. The other 50% has not been tracked down yet.
+
+![sample_screen](hwindows_defender_screenshot.png)
+
+What you will see if you launch succesfully
+
 ![sample_screen](hipparchia_windows_screenshot.png)
