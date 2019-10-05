@@ -107,9 +107,14 @@ as necessary and then...
     cd ~\hipparchia_venv\Scripts\
     .\activate
     cd ..\HipparchiaBuilder\
-    python .\makecorpora.py
+    ..\Scripts\python.exe .\makecorpora.py
     
-**Vector** functions are not automatically installed. You need to:
+    [some time later...]
+    cd ..\HipparchiaServer\
+    ..\Scripts\python.exe .\run.py
+    
+    
+~~**Vector** functions are not automatically installed. You need to:~~ [__vectors not working on W10 at present__]
 
     pip install cython scipy numpy gensim pyLDAvis matplotlib networkx scikit-learn
 
@@ -134,8 +139,11 @@ Building / Loading / Debugging will be done in PowerShell
 
 
 
-the Windows version of Hipparchia is **far** slower than other versions. 
+the Windows version of Hipparchia has been observed to be **far** slower than HipparchiaServer on other platforms. 
+But it is not always hopelessly slow on Windows.
+Why some installations are slow is not yet clear. 
 
+Some tips:
 1. Windows Defender hates postgres; if you search 235k texts, Windows Defender will look at all of them first. Ick.
 1. You can/should exclude the psql data files from being "defended" against. See the image below.
 1. This will restore c. 50% of your missing search speed. The other 50% has not been tracked down yet.
