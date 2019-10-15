@@ -81,6 +81,7 @@ New-Variable -Name EXTRAFONTS -Value $HIPPHOME\HipparchiaExtraFonts
 New-Variable -Name SUPPORT -Value $THIRDPARTYPATH\minimal_installation
 New-Variable -Name STATIC -Value $SERVERPATH\server\static
 New-Variable -Name THEDB -Value hipparchiaDB
+New-Variable -Name LEXDATAPATH -Value $HIPPHOME\HipparchiaLexicalData
 
 New-Variable -Name SERVERGIT -Value https://github.com/e-gun/HipparchiaServer.git
 New-Variable -Name BUILDERGIT -Value https://github.com/e-gun/HipparchiaBuilder.git
@@ -90,8 +91,10 @@ New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS.git
 New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
 New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
+New-Variable -Name LEXGIT -Value $SERVERPATH\HipparchiaLexicalData
+New-Variable -Name LEXTGIT -Value https://github.com/e-gun/HipparchiaLexicalData.git
 
-ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $FONTGIT) {
+ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS, $LEXDATAPATH) {
     mkdir $dirname
     }
 
@@ -124,9 +127,9 @@ git pull $WINGIT
 cp $WINPATH\launch_hipparchia_server.ps1 $HIPPHOME\
 cp $WINPATH\windows_selfupdate.ps1 $HIPPHOME\
 
-cd $FONTGIT
+cd $EXTRAFONTS
 git init
-git pull $EXTRAFONTS
+git pull $FONTGIT
 
 cd $THIRDPARTYPATH
 git init
@@ -148,6 +151,11 @@ cp $SUPPORT\NotoSansDisplay-unhinted.zip $STATIC\ttf\NotoSansDisplay-unhinted.zi
 cd $STATIC\ttf
 7z -aoa x .\*.zip
 rm $STATIC\ttf\*.zip
+
+mkdir $DATAPATH\lexica\
+cd $DATAPATH\lexica\
+cp $LEXDATAPATH\*.gz $DATAPATH\lexica\
+7z -aoa x $DATAPATH\lexica\*.gz
 
 # the next can generate passwords with '%' in them; configparser will choke on '%' (which needs to be escaped as '%%')
 # this is a problem if hippa_wr gets a bad password: build/reload will fail
@@ -174,6 +182,7 @@ New-Variable -Name STHREE -Value $LOADERPATH\config.ini
 (Get-Content $SONE).replace('yourpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
 (Get-Content $SONE).replace('yourkeyhereitshouldbelongandlooklikecryptographicgobbledygook', $SKRKEY) | Set-Content $SONE
 (Get-Content $STWO).replace('>>yourpasshere<<', $WRPASS) | Set-Content $STWO
+(Get-Content $STWO).replace('loadwordcountsviasql = y', 'loadwordcountsviasql = n') | Set-Content $STWO
 (Get-Content $STHREE).replace('yourpasshere', $WRPASS) | Set-Content $STHREE
 
 # tilde confuses us...

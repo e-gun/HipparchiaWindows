@@ -120,13 +120,6 @@ as necessary and then...
 
 The `pip install...` command will only work if you `activate`-ed the `venv` as in **Building** above.
 
-
-[**nb**: wordcounts build only in theory: they require >4GB of RAM and 
-are untested on a Windows installation with that much memory. But installations
-that do not have wordcounts work just fine.]
-
-
-
 #### Troubleshooting cheatsheet
 
 Building / Loading / Debugging will be done in PowerShell
@@ -136,8 +129,8 @@ Building / Loading / Debugging will be done in PowerShell
 1. `~\hipparchia_venv\Scripts\activate` needs to be executed to get the right `python` interpreter
 1. Only at this point will saying `python .\somescript.py` work
 1. **Avoid** editing `config.ini` with `NotePad`. Unicode errors will ensue after you hit `save`. Consider using something smarter like `Sublime Text`.
-
-
+1. Wordcounts **will not load** via SQL at the moment [Builder v.1.3.1]. They have to be built manually. `config.ini` should set `loadwordcountsviasql = n`
+1. If `7z`, `git`, etc. are installed under the 32-bit Programs directory the automated scripts will not find them
 
 the Windows version of Hipparchia has been observed to be **far** slower than HipparchiaServer on other platforms. 
 But it is not always hopelessly slow on Windows.
