@@ -135,7 +135,7 @@ cd $THIRDPARTYPATH
 git init
 git pull $THIRDPARTYGIT
 
-cp $SUPPORT\jquery-3.3.1.min.js $STATIC\jquery.min.js
+cp $SUPPORT\jquery-3.4.1.min.js $STATIC\jquery.min.js
 cp $SUPPORT\js.cookie.js $STATIC\js.cookie.js
 cp $SUPPORT\jquery-ui-1.12.1.zip $STATIC\jquery-ui-1.12.1.zip
 # 7z seems not to like to follow variable pathnames... so we 'cd'
