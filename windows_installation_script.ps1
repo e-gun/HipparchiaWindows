@@ -164,8 +164,10 @@ Add-Type -AssemblyName System.Web
 $WRPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 $RDPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 $SKRKEY = [System.Web.Security.Membership]::GeneratePassword(24,6)
+$RUPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 
 $WRPASS = $WRPASS -Replace '%'
+$RDPASS = $RDPASS -Replace '%'
 
 echo "the next several commands require you to enter the password for postgres (4x)"
 C:\Program*Files\PostgreSQL\*\bin\createdb.exe -U postgres -E utf8 -l C $THEDB
@@ -184,13 +186,14 @@ New-Variable -Name STHREE -Value $LOADERPATH\config.ini
 (Get-Content $STWO).replace('>>yourpasshere<<', $WRPASS) | Set-Content $STWO
 (Get-Content $STWO).replace('loadwordcountsviasql = y', 'loadwordcountsviasql = n') | Set-Content $STWO
 (Get-Content $STHREE).replace('yourpasshere', $WRPASS) | Set-Content $STHREE
+(Get-Content $SONE).replace('yourremoteuserpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
 
 # tilde confuses us...
 cd ~
 python -m venv .\hipparchia_venv\
 cd $HIPPHOME\Scripts\
 .\activate
-pip install flask psycopg2-binary websockets
+pip install flask psycopg2-binary websockets flask_wtf flask_login
 
 # building...
 # edit config.ini
