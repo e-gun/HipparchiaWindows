@@ -72,7 +72,7 @@ New-Variable -Name HIPPHOME -Value ~\hipparchia_venv
 New-Variable -Name SERVERPATH -Value $HIPPHOME\HipparchiaServer
 New-Variable -Name BUILDERPATH -Value $HIPPHOME\HipparchiaBuilder
 New-Variable -Name LOADERPATH -Value $HIPPHOME\HipparchiaSQLoader
-New-Variable -Name BSDPATH -Value $HIPPHOME\HipparchiaBSD
+New-Variable -Name NIXPATH -Value $HIPPHOME\HipparchiaNIX
 New-Variable -Name MACPATH -Value $HIPPHOME\HipparchiaMacOS
 New-Variable -Name WINPATH -Value $HIPPHOME\HipparchiaWindows
 New-Variable -Name DATAPATH -Value $HIPPHOME\HipparchiaData
@@ -86,7 +86,7 @@ New-Variable -Name LEXDATAPATH -Value $HIPPHOME\HipparchiaLexicalData
 New-Variable -Name SERVERGIT -Value https://github.com/e-gun/HipparchiaServer.git
 New-Variable -Name BUILDERGIT -Value https://github.com/e-gun/HipparchiaBuilder.git
 New-Variable -Name LOADERGIT -Value https://github.com/e-gun/HipparchiaSQLoader.git
-New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaBSD.git
+New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaNIX.git
 New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS.git
 New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
 New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
@@ -94,7 +94,7 @@ New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.
 New-Variable -Name LEXGIT -Value $SERVERPATH\HipparchiaLexicalData
 New-Variable -Name LEXTGIT -Value https://github.com/e-gun/HipparchiaLexicalData.git
 
-ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $BSDPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS, $LEXDATAPATH) {
+ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $NIXPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS, $LEXDATAPATH) {
     mkdir $dirname
     }
 
@@ -113,7 +113,7 @@ git init
 git pull $LOADERGIT
 cp $LOADERPATH\sample_config.ini $LOADERPATH\config.ini
 
-cd $BSDPATH
+cd $NIXPATH
 git init
 git pull $BSDGIT
 
