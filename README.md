@@ -78,7 +78,7 @@ users will need to pre-load several packages themselves:
 1. [git](https://github.com/git-for-windows/git/releases/)
 1. [7z](https://www.7-zip.org/download.html)
 1. [postgresql](https://www.postgresql.org/download/windows/)
-1. [redis][https://github.com/microsoftarchive/redis/releases/]
+1. [redis](https://github.com/microsoftarchive/redis/releases/)
 
 it is **critical** to choose `"C"` as the Locale when asked to by the
 `postgresql` installer
