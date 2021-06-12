@@ -83,59 +83,44 @@ New-Variable -Name STATIC -Value $SERVERPATH\server\static
 New-Variable -Name THEDB -Value hipparchiaDB
 New-Variable -Name LEXDATAPATH -Value $HIPPHOME\HipparchiaLexicalData
 
-New-Variable -Name SERVERGIT -Value https://github.com/e-gun/HipparchiaServer.git
-New-Variable -Name BUILDERGIT -Value https://github.com/e-gun/HipparchiaBuilder.git
-New-Variable -Name LOADERGIT -Value https://github.com/e-gun/HipparchiaSQLoader.git
-New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaNIX.git
-New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS.git
-New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows.git
-New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware.git
-New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.git
+New-Variable -Name SERVERGIT -Value https://github.com/e-gun/HipparchiaServer
+New-Variable -Name BUILDERGIT -Value https://github.com/e-gun/HipparchiaBuilder
+New-Variable -Name LOADERGIT -Value https://github.com/e-gun/HipparchiaSQLoader
+New-Variable -Name BSDGIT -Value https://github.com/e-gun/HipparchiaNIX
+New-Variable -Name MACGIT -Value https://github.com/e-gun/HipparchiaMacOS
+New-Variable -Name WINGIT -Value https://github.com/e-gun/HipparchiaWindows
+New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThirdPartySoftware
+New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.
 New-Variable -Name LEXGIT -Value $SERVERPATH\HipparchiaLexicalData
-New-Variable -Name LEXTGIT -Value https://github.com/e-gun/HipparchiaLexicalData.git
+New-Variable -Name LEXTGIT -Value https://github.com/e-gun/HipparchiaLexicalData
 
 ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $NIXPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS, $LEXDATAPATH) {
     mkdir $dirname
     }
 
-cd $SERVERPATH
-git init
-git pull $SERVERGIT
+cd $HIPPHOME
+git clone $SERVERGIT
 cp -r $SERVERPATH\server\sample_settings $SERVERPATH\server\settings 
 
-cd $BUILDERPATH
-git init
-git pull $BUILDERGIT
+git clone $BUILDERGIT
 cp $BUILDERPATH\sample_config.ini $BUILDERPATH\config.ini
 
-cd $LOADERPATH
-git init
-git pull $LOADERGIT
+git clone $LOADERGIT
 cp $LOADERPATH\sample_config.ini $LOADERPATH\config.ini
 
-cd $NIXPATH
-git init
-git pull $BSDGIT
+git clone $BSDGIT
+git clone $MACGIT
 
-cd $MACPATH
-git init
-git pull $MACGIT
-
-cd $WINPATH
-git init
-git pull $WINGIT
+git clone $WINGIT
 cp $WINPATH\launch_hipparchia_server.ps1 $HIPPHOME\
 cp $WINPATH\windows_selfupdate.ps1 $HIPPHOME\
 
-cd $EXTRAFONTS
-git init
-git pull $FONTGIT
+git clone $FONTGIT
 
-cd $THIRDPARTYPATH
-git init
-git pull $THIRDPARTYGIT
+git clone $THIRDPARTYGIT
+git clone $LEXGIT
 
-cp $SUPPORT\jquery-3.4.1.min.js $STATIC\jquery.min.js
+cp $SUPPORT\jquery-3.6.0.min.js $STATIC\jquery.min.js
 cp $SUPPORT\js.cookie.js $STATIC\js.cookie.js
 cp $SUPPORT\jquery-ui-1.12.1.zip $STATIC\jquery-ui-1.12.1.zip
 # 7z seems not to like to follow variable pathnames... so we 'cd'
@@ -166,8 +151,8 @@ $RDPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 $SKRKEY = [System.Web.Security.Membership]::GeneratePassword(24,6)
 $RUPASS = [System.Web.Security.Membership]::GeneratePassword(12,3)
 
-$WRPASS = $WRPASS -Replace '%'
-$RDPASS = $RDPASS -Replace '%'
+$WRPASS = $WRPASS -Replace '%#]?+'
+$RDPASS = $RDPASS -Replace '%#]?+'
 
 echo "the next several commands require you to enter the password for postgres (4x)"
 C:\Program*Files\PostgreSQL\*\bin\createdb.exe -U postgres -E utf8 -l C $THEDB

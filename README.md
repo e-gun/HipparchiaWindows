@@ -78,6 +78,7 @@ users will need to pre-load several packages themselves:
 1. [git](https://github.com/git-for-windows/git/releases/)
 1. [7z](https://www.7-zip.org/download.html)
 1. [postgresql](https://www.postgresql.org/download/windows/)
+1. [redis][https://github.com/microsoftarchive/redis/releases/]
 
 it is **critical** to choose `"C"` as the Locale when asked to by the
 `postgresql` installer
@@ -107,7 +108,7 @@ as necessary and then...
     cd ~\hipparchia_venv\Scripts\
     .\activate
     cd ..\HipparchiaBuilder\
-    ..\Scripts\python.exe .\makecorpora.py
+    ..\Scripts\python.exe -Xutf8 .\makecorpora.py
     
     [some time later...]
     cd ..\HipparchiaServer\
@@ -121,6 +122,15 @@ as necessary and then...
 The `pip install...` command will only work if you `activate`-ed the `venv` as in **Building** above.
 
 #### Troubleshooting cheatsheet
+
+Gotchas as of `1.7.6`
+
+1. you might want to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
+1. if you do that you need [GCC](http://tdm-gcc.tdragon.net/download) too
+1. loadar from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.
+1. there is a pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is the safe bet until something in the `1.7.6+` range addresses this; try [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. 
+1. `vectors` ought to work if you can figure out how to install `gensim`: sill more dependencies...: `building 'gensim.models.word2vec_inner' extension... error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/`
+
 
 Building / Loading / Debugging will be done in PowerShell
 
