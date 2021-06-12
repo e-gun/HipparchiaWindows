@@ -127,8 +127,8 @@ Gotchas as of `1.7.6`
 
 1. you might want to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
 1. if you do that you need [GCC](http://tdm-gcc.tdragon.net/download) too
-1. loadar from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.
-1. there is a pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is the safe bet until something in the `1.7.6+` range addresses this; try [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. 
+1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.
+1. there is a pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is the safe bet until something in the `1.7.6+` range addresses this; try [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory (and, it seems, in practice as well) going to be significantly faster.
 1. `vectors` ought to work if you can figure out how to install `gensim`: sill more dependencies...: `building 'gensim.models.word2vec_inner' extension... error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/`
 
 
@@ -142,7 +142,7 @@ Building / Loading / Debugging will be done in PowerShell
 1. Wordcounts **will not load** via SQL at the moment [Builder v.1.3.1]. They have to be built manually. `config.ini` should set `loadwordcountsviasql = n`
 1. If `7z`, `git`, etc. are installed under the 32-bit Programs directory the automated scripts will not find them
 
-the Windows version of Hipparchia has been observed to be **far** slower than HipparchiaServer on other platforms. 
+the Windows version of Hipparchia has been observed to be **far** slower than HipparchiaServer on other platforms. [but now `HipparchiaGoDBHelper` seems to be able to make up for all of the lost speed...]
 But it is not always hopelessly slow on Windows.
 Why some installations are slow is not yet clear. 
 

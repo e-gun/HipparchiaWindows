@@ -178,7 +178,7 @@ cd ~
 python -m venv .\hipparchia_venv\
 cd $HIPPHOME\Scripts\
 .\activate
-pip install flask psycopg2-binary websockets flask_wtf flask_login
+pip install flask psycopg2-binary websockets flask_wtf flask_login redis
 
 # building...
 # edit config.ini
