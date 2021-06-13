@@ -79,9 +79,10 @@ New-Variable -Name DATAPATH -Value $HIPPHOME\HipparchiaData
 New-Variable -Name THIRDPARTYPATH -Value $HIPPHOME\HipparchiaThirdPartySoftware
 New-Variable -Name EXTRAFONTS -Value $HIPPHOME\HipparchiaExtraFonts
 New-Variable -Name SUPPORT -Value $THIRDPARTYPATH\minimal_installation
-New-Variable -Name STATIC -Value $SERVERPATH\server\static
+New-Variable -Name THESTATIC -Value $SERVERPATH\server\static
 New-Variable -Name THEDB -Value hipparchiaDB
 New-Variable -Name LEXDATAPATH -Value $HIPPHOME\HipparchiaLexicalData
+New-Variable -Name THEBIN -Value $SERVERPATH\HipparchiaGoBinaries\cli_prebuilt_binaries
 
 New-Variable -Name SERVERGIT -Value https://github.com/e-gun/HipparchiaServer
 New-Variable -Name BUILDERGIT -Value https://github.com/e-gun/HipparchiaBuilder
@@ -93,6 +94,7 @@ New-Variable -Name THIRDPARTYGIT -Value https://github.com/e-gun/HipparchiaThird
 New-Variable -Name FONTGIT -Value https://github.com/e-gun/HipparchiaExtraFonts.
 New-Variable -Name LEXGIT -Value $SERVERPATH\HipparchiaLexicalData
 New-Variable -Name LEXTGIT -Value https://github.com/e-gun/HipparchiaLexicalData
+New-Variable -Name BINGIT -Value https://github.com/e-gun/HipparchiaGoBinaries
 
 ForEach ($dirname in $HIPPHOME, $SERVERPATH, $BUILDERPATH, $LOADERPATH, $NIXPATH, $MACPATH, $WINPATH, $DATAPATH, $THIRDPARTYPATH, $EXTRAFONTS, $LEXDATAPATH) {
     mkdir $dirname
@@ -119,23 +121,27 @@ git clone $FONTGIT
 
 git clone $THIRDPARTYGIT
 git clone $LEXGIT
+git clone $BINGIT
 
-cp $SUPPORT\jquery-3.6.0.min.js $STATIC\jquery.min.js
-cp $SUPPORT\js.cookie.js $STATIC\js.cookie.js
-cp $SUPPORT\jquery-ui-1.12.1.zip $STATIC\jquery-ui-1.12.1.zip
+cp $SUPPORT\jquery-3.6.0.min.js $THESTATIC\jquery.min.js
+cp $SUPPORT\js.cookie.js $THESTATIC\js.cookie.js
+cp $SUPPORT\jquery-ui-1.12.1.zip $THESTATIC\jquery-ui-1.12.1.zip
 # 7z seems not to like to follow variable pathnames... so we 'cd'
-cd $STATIC\
+cd $THESTATIC\
 7z -aoa x .\jquery-ui-1.12.1.zip
-rm $STATIC\jquery-ui-1.12.1.zip
-mv $STATIC\jquery-ui-1.12.1\* $STATIC\
-rmdir $STATIC\jquery-ui-1.12.1\
+rm $THESTATIC\jquery-ui-1.12.1.zip
+mv $THESTATIC\jquery-ui-1.12.1\* $THESTATIC\
+rmdir $THESTATIC\jquery-ui-1.12.1\
 
-cp $SUPPORT\NotoMono-hinted.zip $STATIC\ttf\NotoMono-hinted.zip
-cp $SUPPORT\NotoSans-unhinted.zip $STATIC\ttf\NotoSans-unhinted.zip
-cp $SUPPORT\NotoSansDisplay-unhinted.zip $STATIC\ttf\NotoSansDisplay-unhinted.zip
-cd $STATIC\ttf
+cp $SUPPORT\NotoMono-hinted.zip $THESTATIC\ttf\NotoMono-hinted.zip
+cp $SUPPORT\NotoSans-unhinted.zip $THESTATIC\ttf\NotoSans-unhinted.zip
+cp $SUPPORT\NotoSansDisplay-unhinted.zip $THESTATIC\ttf\NotoSansDisplay-unhinted.zip
+cd $THESTATIC\ttf
 7z -aoa x .\*.zip
-rm $STATIC\ttf\*.zip
+rm $THESTATIC\ttf\*.zip
+
+cp $THEBIN\HipparchiaGoDBHelper-Windows-latest.exe.bz2 $SERVERPATH\server\externalbinaries\
+7z -aoa x $SERVERPATH\server\externalbinaries\*bz2
 
 mkdir $DATAPATH\lexica\
 cd $DATAPATH\lexica\
@@ -165,6 +171,7 @@ psql -U postgres -d $THEDB --command="ALTER ROLE hippa_rd WITH PASSWORD '$RDPASS
 New-Variable -Name SONE -Value $SERVERPATH\server\settings\securitysettings.py
 New-Variable -Name STWO -Value $BUILDERPATH\config.ini
 New-Variable -Name STHREE -Value $LOADERPATH\config.ini
+New-Variable -Name SFOUR -Value $LOADERPATH\server\settings\helpersettings.py
 
 (Get-Content $SONE).replace('yourpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
 (Get-Content $SONE).replace('yourkeyhereitshouldbelongandlooklikecryptographicgobbledygook', $SKRKEY) | Set-Content $SONE
@@ -172,6 +179,11 @@ New-Variable -Name STHREE -Value $LOADERPATH\config.ini
 (Get-Content $STWO).replace('loadwordcountsviasql = y', 'loadwordcountsviasql = n') | Set-Content $STWO
 (Get-Content $STHREE).replace('yourpasshere', $WRPASS) | Set-Content $STHREE
 (Get-Content $SONE).replace('yourremoteuserpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
+
+(Get-Content $SONE).replace('EXTERNALGRABBER = False', 'EXTERNALGRABBER = True') | Set-Content $SFOUR
+(Get-Content $SONE).replace('GRABBERCALLEDVIACLI = False', 'GRABBERCALLEDVIACLI = True') | Set-Content $SFOUR
+(Get-Content $SONE).replace('EXTERNALVECTORHELPER = False', 'EXTERNALVECTORHELPER = True') | Set-Content $SFOUR
+(Get-Content $SONE).replace('EXTERNALWEBSOCKETS = False', 'EXTERNALWEBSOCKETS = True') | Set-Content $SFOUR
 
 # tilde confuses us...
 cd ~

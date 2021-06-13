@@ -115,21 +115,23 @@ as necessary and then...
     ..\Scripts\python.exe .\run.py
     
     
-~~**Vector** functions are not automatically installed. You need to:~~ [__vectors not working on W10 at present__]
+**Vector** functions are not automatically installed. You need to:
 
     pip install cython scipy numpy gensim pyLDAvis matplotlib networkx scikit-learn
 
 The `pip install...` command will only work if you `activate`-ed the `venv` as in **Building** above.
 
+vectors will work if you can meet the requirements for installing `gensim`: sill more dependencies...: `building 'gensim.models.word2vec_inner' extension... error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/` So go [grab](https://visualstudio.microsoft.com/visual-cpp-build-tools/) it... 
+
+
 #### Troubleshooting cheatsheet
 
 Gotchas as of `1.7.6`
 
-1. you might want to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
+1. you need to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
 1. if you do that you need [GCC](http://tdm-gcc.tdragon.net/download) too
-1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.
-1. there is a pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is the safe bet until something in the `1.7.6+` range addresses this; try [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory (and, it seems, in practice as well) going to be significantly faster.
-1. `vectors` ought to work if you can figure out how to install `gensim`: sill more dependencies...: `building 'gensim.models.word2vec_inner' extension... error: Microsoft Visual C++ 14.0 or greater is required. Get it with "Microsoft C++ Build Tools": https://visualstudio.microsoft.com/visual-cpp-build-tools/`
+1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.  [Specifically the generic `arguments.append('psql')` in `archivedsqlloader()` needs to `append` the proper windows-specific path.]
+1. there is a Windows-only pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is going to be your firend until something in the `1.7.6+` range addresses this. You need [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory going to be faster in any case.
 
 
 Building / Loading / Debugging will be done in PowerShell
