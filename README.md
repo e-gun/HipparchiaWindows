@@ -130,7 +130,8 @@ Gotchas as of `1.7.6`
 
 1. you need to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
 1. if you do that you need [GCC](http://tdm-gcc.tdragon.net/download) too
-1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.  [Specifically the generic `arguments.append('psql')` in `archivedsqlloader()` needs to `append` the proper windows-specific path.]
+1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.  [The generic `arguments.append('psql')` in `archivedsqlloader()` needs to `append` the proper windows-specific path.]
+1. `--pgversion` command line option will let windows users try to to set the right path to `psql.exe`: `makecorpora.py --pgversion 11 ...`
 1. there is a Windows-only pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is going to be your firend until something in the `1.7.6+` range addresses this. You need [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory going to be faster in any case.
 
 
@@ -141,7 +142,6 @@ Building / Loading / Debugging will be done in PowerShell
 1. `~\hipparchia_venv\Scripts\activate` needs to be executed to get the right `python` interpreter
 1. Only at this point will saying `python .\somescript.py` work
 1. **Avoid** editing `config.ini` with `NotePad`. Unicode errors will ensue after you hit `save`. Consider using something smarter like `Sublime Text`.
-1. Wordcounts **will not load** via SQL at the moment [Builder v.1.3.1]. They have to be built manually. `config.ini` should set `loadwordcountsviasql = n`
 1. If `7z`, `git`, etc. are installed under the 32-bit Programs directory the automated scripts will not find them
 
 the Windows version of Hipparchia has been observed to be **far** slower than HipparchiaServer on other platforms. [but now `HipparchiaGoDBHelper` seems to be able to make up for all of the lost speed...]
