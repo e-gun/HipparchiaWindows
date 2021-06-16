@@ -27,7 +27,7 @@
 
 	e.g: open Terminal.app and paste
 	
-	`curl https://raw.githubusercontent.com/e-gun/HipparchiaMacOS/master/automated_macOS_install.sh | /bin/bash`
+	`curl https://raw.githubusercontent.com/e-gun/HipparchiaMacOS/stable/automated_macOS_install.sh | /bin/bash`
 
     After watching a lot of messages fly by you will have the full framework. Its probably good news 
     if you see the following: `CONGRATULATIONS: You have installed the Hipparchia framework`
@@ -126,13 +126,15 @@ vectors will work if you can meet the requirements for installing `gensim`: sill
 
 #### Troubleshooting cheatsheet
 
-Gotchas as of `1.7.6`
+Gotchas as of `1.7.7`
 
+1. the `HipparchiaGoDBHelper` is **very highly recommended**. You need [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory going to be faster in any case. 
+1. searching without `HipparchiaGoDBHelper` will not be multithreaded because there is a Windows-only pickle problem. Multithreading costs `10s` in startup time in any case. So single threaded simple searches often finish sooner than they would if multithreaded. In faclt **all** multithreading code now dodges Windows: morphology, redis pulls, ... 
+1. using `HipparchiaGoDBHelper` means that `redis` too is now a hard requirement rather than an optional install. 
 1. you need to grab [golang](https://golang.org/doc/install) if you are going to build [HipparchiaGoDBHelper](https://github.com/e-gun/HipparchiaGoDBHelper)
 1. if you do that you need [GCC](http://tdm-gcc.tdragon.net/download) too
 1. loader from stored SQL in the builder has to call `psql.exe`, but that location is a moving target: `/Program Files/PostgreSQL/NN/bin/psql.exe` where NN might be `10`, `11`, `12`, `13`, ...: watch out for file not found errors.  [The generic `arguments.append('psql')` in `archivedsqlloader()` needs to `append` the proper windows-specific path.]
 1. `--pgversion` command line option will let windows users try to to set the right path to `psql.exe`: `makecorpora.py --pgversion 11 ...`
-1. there is a Windows-only pickling problem with multiprocessing (again), so the `HipparchiaGoDBHelper` is going to be your firend until something in the `1.7.6+` range addresses this. You need [HipparchiaGoBinaries](https://github.com/e-gun/HipparchiaGoBinaries) if building is not your thing. Note that searches via the helper are in theory going to be faster in any case.
 
 
 Building / Loading / Debugging will be done in PowerShell

@@ -172,6 +172,7 @@ New-Variable -Name SONE -Value $SERVERPATH\server\settings\securitysettings.py
 New-Variable -Name STWO -Value $BUILDERPATH\config.ini
 New-Variable -Name STHREE -Value $LOADERPATH\config.ini
 New-Variable -Name SFOUR -Value $LOADERPATH\server\settings\helpersettings.py
+New-Variable -Name SFIVE -Value $LOADERPATH\server\settings\networksettings.py
 
 (Get-Content $SONE).replace('yourpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
 (Get-Content $SONE).replace('yourkeyhereitshouldbelongandlooklikecryptographicgobbledygook', $SKRKEY) | Set-Content $SONE
@@ -180,10 +181,13 @@ New-Variable -Name SFOUR -Value $LOADERPATH\server\settings\helpersettings.py
 (Get-Content $STHREE).replace('yourpasshere', $WRPASS) | Set-Content $STHREE
 (Get-Content $SONE).replace('yourremoteuserpassheretrytomakeitstrongplease', $RDPASS) | Set-Content $SONE
 
-(Get-Content $SONE).replace('EXTERNALGRABBER = False', 'EXTERNALGRABBER = True') | Set-Content $SFOUR
-(Get-Content $SONE).replace('GRABBERCALLEDVIACLI = False', 'GRABBERCALLEDVIACLI = True') | Set-Content $SFOUR
-(Get-Content $SONE).replace('EXTERNALVECTORHELPER = False', 'EXTERNALVECTORHELPER = True') | Set-Content $SFOUR
-(Get-Content $SONE).replace('EXTERNALWEBSOCKETS = False', 'EXTERNALWEBSOCKETS = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('EXTERNALGRABBER = False', 'EXTERNALGRABBER = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('GRABBERCALLEDVIACLI = False', 'GRABBERCALLEDVIACLI = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('EXTERNALVECTORHELPER = False', 'EXTERNALVECTORHELPER = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('EXTERNALWEBSOCKETS = False', 'EXTERNALWEBSOCKETS = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('EXTERNALWEBSOCKETS = False', 'EXTERNALWEBSOCKETS = True') | Set-Content $SFOUR
+(Get-Content $SFOUR).replace('HipparchiaGoDBHelper', 'HipparchiaGoDBHelper.exe') | Set-Content $SFOUR
+(Get-Content $SFIVE).replace("POLLCONNECTIONTYPE = 'notredis'", "POLLCONNECTIONTYPE = 'redis'") | Set-Content $SFIVE
 
 # tilde confuses us...
 cd ~
